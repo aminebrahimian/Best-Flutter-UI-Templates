@@ -164,10 +164,16 @@ class _BottomBarViewState extends State<BottomBarView>
                           highlightColor: Colors.transparent,
                           focusColor: Colors.transparent,
                           onTap: widget.addClick,
-                          child: Icon(
-                            Icons.add,
-                            color: FitnessAppTheme.white,
-                            size: 32,
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            width: 32,
+                            height: 32,
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stack) => Icon(
+                              Icons.bolt,
+                              color: FitnessAppTheme.white,
+                              size: 32,
+                            ),
                           ),
                         ),
                       ),
@@ -251,9 +257,21 @@ class _TabIconsState extends State<TabIcons> with TickerProviderStateMixin {
                           parent: widget.tabIconData!.animationController!,
                           curve:
                               Interval(0.1, 1.0, curve: Curves.fastOutSlowIn))),
-                  child: Image.asset(widget.tabIconData!.isSelected
-                      ? widget.tabIconData!.selectedImagePath
-                      : widget.tabIconData!.imagePath),
+                  child: widget.tabIconData!.imagePath.isNotEmpty
+                      ? Image.asset(
+                          widget.tabIconData!.isSelected
+                              ? widget.tabIconData!.selectedImagePath
+                              : widget.tabIconData!.imagePath,
+                        )
+                      : Icon(
+                          widget.tabIconData!.isSelected
+                              ? (widget.tabIconData!.selectedIcon ?? Icons.circle)
+                              : (widget.tabIconData!.icon ?? Icons.circle_outlined),
+                          color: widget.tabIconData!.isSelected
+                              ? FitnessAppTheme.nearlyDarkBlue
+                              : FitnessAppTheme.grey,
+                          size: 28,
+                        ),
                 ),
                 Positioned(
                   top: 4,
